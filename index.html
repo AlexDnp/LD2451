@@ -2,101 +2,112 @@
 <html>
 
 <head>
- <!-- <meta charset="windows-1251"> -->
-  <meta name="viewport" content="width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable=0">
-  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-  <link rel="manifest" href="manifest.json">
-	<!-- Load plotly.js into the DOM -->
-  <script src='https://cdn.plot.ly/plotly-3.1.0.min.js'></script>
-  <title>HLK-LD2451</title>
+    <!-- <meta charset="windows-1251"> -->
+    <meta name="viewport" content="width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable=0">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="manifest" href="manifest.json">
+    <!-- Load plotly.js into the DOM -->
+    <script src='https://cdn.plot.ly/plotly-3.1.0.min.js'></script>
+    <title>HLK-LD2451</title>
     <style>
         body {
-        margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
         }
-        </style>
-  </head>
+    </style>
+</head>
 
-  <body>
+<body>
     <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
 
-  </body>
-  
+</body>
+
 <script>
 
-  var data = [
-    {
-      type: "scatterpolar",
-      mode: "markers",
-      r: [1,2,3,4,10],
-      theta: [0,20,30,-15,-30],
-      line: {
-        color: "#ff66ab"
-      },
-      marker: {
-        color: ['red', 'green', 'blue', 'purple'],
-        symbol: "square",
-        size: 8
-      },
-      subplot: "polar"
-    },
-    {
-      type: "scatterpolar",
-      mode: "lines+markers",
-      r: [1,2,3,4,5],
-      theta: [0,90,180,360,0],
-      line: {
-        color: "#ff66ab"
-      },
-      marker: {
-        color: "#8090c7",
-        symbol: "square",
-        size: 8
-      },
-      subplot: "polar2"
-    }
-  ]
-
-var layout = {
-    showlegend: false,
-    polar: {
-		sector: [45,135],
-      domain: {
-        x: [0,0.4],
-        y: [0,1]
-      },
-      radialaxis: {
-        tickfont: {
-          size: 8
-        }
-      },
-      angularaxis: {
-        tickfont: {
-          size: 8
+    var data = [
+        {
+            type: "scatterpolar",
+            mode: "markers",
+            r: [1, 2, 3, 4, 10],
+            theta: [0, 20, 30, -15, -30],
+            line: {
+                color: "#ff66ab"
+            },
+            marker: {
+                color: ['red', 'green', 'blue', 'purple'],
+                symbol: "square",
+                size: 8
+            },
+            subplot: "polar"
         },
-        rotation: 90,
-        direction: "clockwise"
-      }
-    },
-    polar2: {
-      domain: {
-        x: [0.6,1],
-        y: [0,1]
-      },
-      radialaxis: {
-        tickfont: {
-          size: 8
+        {
+            type: "scatterpolar",
+            mode: "lines+markers",
+            r: [1, 2, 3, 4, 5],
+            theta: [0, 90, 180, 360, 0],
+            line: {
+                color: "#ff66ab"
+            },
+            marker: {
+                color: "#8090c7",
+                symbol: "square",
+                size: 8
+            },
+            subplot: "polar2"
         }
-      },
-      angularaxis: {
-        tickfont: {
-          size: 8
-        }
-      }
-    }
-  }
+    ]
 
-Plotly.newPlot('myDiv', data, layout);
+    var layout = {
+        showlegend: false,
+        dragmode: false, // Disables all drag-based zooming and panning
+
+        polar: {
+            sector: [45, 135],
+            domain: {
+                x: [0, 0.4],
+                y: [0, 1]
+            },
+            radialaxis: {
+                tickfont: {
+                    size: 8
+                }
+            },
+            angularaxis: {
+                tickfont: {
+                    size: 8
+                },
+                rotation: 90,
+                direction: "clockwise"
+            }
+        },
+        polar2: {
+            domain: {
+                x: [0.6, 1],
+                y: [0, 1]
+            },
+            radialaxis: {
+                tickfont: {
+                    size: 8
+                }
+            },
+            angularaxis: {
+                tickfont: {
+                    size: 8
+                }
+            }
+        },
+
+       // paper_bgcolor: '#f8f8f8', // Very light gray background for the entire chart container
+      //  plot_bgcolor: 'gray',
+         polar_bgcolor: 'blue',
+    }
+
+    var config = {
+        responsive: true,
+        displayModeBar: false
+    }
+
+    Plotly.newPlot('myDiv', data, layout, config);
 
 </script>
 
