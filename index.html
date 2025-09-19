@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ <!-- <meta charset="windows-1251"> -->
+  <meta name="viewport" content="width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable=0">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="manifest" href="manifest.json">
+	<!-- Load plotly.js into the DOM -->
+  <script src='https://cdn.plot.ly/plotly-3.1.0.min.js'></script>
+  <title>HLK-LD2451</title>
+    <style>
+        body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        }
+        </style>
+  </head>
+
+  <body>
+    <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+
+  </body>
+  
+<script>
+
+  var data = [
+    {
+      type: "scatterpolar",
+      mode: "markers",
+      r: [1,2,3,4,10],
+      theta: [0,20,30,-15,-30],
+      line: {
+        color: "#ff66ab"
+      },
+      marker: {
+        color: ['red', 'green', 'blue', 'purple'],
+        symbol: "square",
+        size: 8
+      },
+      subplot: "polar"
+    },
+    {
+      type: "scatterpolar",
+      mode: "lines+markers",
+      r: [1,2,3,4,5],
+      theta: [0,90,180,360,0],
+      line: {
+        color: "#ff66ab"
+      },
+      marker: {
+        color: "#8090c7",
+        symbol: "square",
+        size: 8
+      },
+      subplot: "polar2"
+    }
+  ]
+
+var layout = {
+    showlegend: false,
+    polar: {
+		sector: [45,135],
+      domain: {
+        x: [0,0.4],
+        y: [0,1]
+      },
+      radialaxis: {
+        tickfont: {
+          size: 8
+        }
+      },
+      angularaxis: {
+        tickfont: {
+          size: 8
+        },
+        rotation: 90,
+        direction: "clockwise"
+      }
+    },
+    polar2: {
+      domain: {
+        x: [0.6,1],
+        y: [0,1]
+      },
+      radialaxis: {
+        tickfont: {
+          size: 8
+        }
+      },
+      angularaxis: {
+        tickfont: {
+          size: 8
+        }
+      }
+    }
+  }
+
+Plotly.newPlot('myDiv', data, layout);
+
+</script>
+
+</html>
