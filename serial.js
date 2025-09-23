@@ -2,6 +2,67 @@ const connectButton = document.getElementById("connectSerial");
 let port; // Declaring a global variable
 let terminalContainer = document.getElementById('terminal');
 
+const seqStart = [0xF4, 0xF3, 0xF2, 0xF1];
+const seqStop = [0xF8, 0xF7, 0xF6, 0xF5];
+
+function radarData(idTarget, Angle, Distance, SpeedDirection, Speed, SignalToNoise) {
+    this.idTarget = idTarget;
+    this.Angle = Angle;//Unit: degree
+    this.Distance = Distance;//Unit: meter
+    this.SpeedDirection = SpeedDirection;//01: Approach  00: Move away
+    this.Speed = Speed;//Unit:km/h
+    this.SignalToNoise = SignalToNoise//;0 to 255 Same as left 
+}
+
+//test
+let testRadar = [
+    new radarData(1, 45, 100, 1, 3, 200)
+];
+testRadar.push(new radarData(2, -10, 100, 0, 5, 180));
+
+console.log(testRadar.length);
+
+const intervalNewDat = setInterval(function () {
+    for (let i = 0; i < testRadar.length; i++) {
+        if (testRadar[i].SpeedDirection == 1) {
+            if ((testRadar[i].Distance - testRadar[i].Speed) > 1) {
+                testRadar[i].Distance = testRadar[i].Distance - testRadar[i].Speed;
+            } else {
+                testRadar[i].SpeedDirection = 0;
+
+            }
+        } else {
+            if (testRadar[i].Distance <= 150) {
+                testRadar[i].Distance = testRadar[i].Distance + testRadar[i].Speed;
+            } else {
+                testRadar[i].SpeedDirection = 1;
+                testRadar[i].Angle = getRandomInt(-45, 45);
+                testRadar[i].Speed = getRandomInt(1, 10);
+                testRadar[i].SignalToNoise = getRandomInt(100, 255);
+            }
+        }
+    }
+
+
+
+    //   counter++;
+    //   console.log(`Interval count: ${counter}`);
+    //   if (counter >= 5) {
+    //     clearInterval(intervalId); // Stop the interval after 5 executions
+    //   }
+}, 10000); // Execute every 10 second
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+// Пример использования:
+let randomValue = getRandomInt(10, 50);
+console.log(randomValue); // случайное число от 10 до 50 включительно
+
+
+
 // Вывод в терминал
 function log(data, type = '') {
     terminalContainer.insertAdjacentHTML('beforeend',
@@ -53,9 +114,8 @@ function findSequence(arr, seq) {
     return -1; // Последовательность не найдена
 }
 
-const arr = [1, 2, 3, 4, 5, 6, 7];
-const seqStart = [0xF4, 0xF3, 0xF2, 0xF1];
-const seqStop = [0xF8, 0xF7, 0xF6, 0xF5];
+
+//var myItems = [new Item(1, 'john', 'au'), new Item(2, 'mary', 'us')];
 
 
 async function readLoop() {
@@ -82,11 +142,11 @@ async function readLoop() {
                         const slicedNumbers = value.slice(indexStart, indexStop); //
                         console.log(slicedNumbers);
                     }
-                    else{
+                    else {
                         console.log("Последовательность stop не найдена");
                     }
                 }
-                 else {
+                else {
                     console.log("Последовательность не найдена");
                 }
             }
