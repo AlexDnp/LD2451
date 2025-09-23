@@ -8,6 +8,7 @@
     <link rel="manifest" href="manifest.json">
     <!-- Load plotly.js into the DOM -->
     <script src='https://cdn.plot.ly/plotly-3.1.0.min.js'></script>
+
     <title>HLK-LD2451</title>
     <style>
         body {
@@ -57,12 +58,41 @@
             background-color: white;
             color: black;
         }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+
+            /* Прозрачность в середине анимации */
+        }
+
+        .blinking-indicator {
+            background-color: blue;
+            color: rgb(252, 249, 248);
+            opacity: 0;
+            /* Скрывает элемент */
+            /* animation: blink 1s infinite; */
+            /* 1 секунда, 100% повторяемости */
+        }
+
+        .hidden {
+            opacity: 0;
+            /* Скрывает элемент */
+        }
+
+        .active {
+            opacity: 1;
+            /* Показывает элемент */
+        }
     </style>
 </head>
 
 <body>
     <div>
         <h3 style="text-align: center;">HLK-LD2451</h3>
+        <span class="blinking-indicator" id="blinking-indicator">New data</span>
+
     </div>
     <div class="container">
 
@@ -83,7 +113,7 @@
     </div>
 </body>
 
-<script src="serial.js"></script>
+
 <script>
 
     var data = [
@@ -172,5 +202,6 @@
     Plotly.newPlot('myDiv', data, layout, config);
 
 </script>
+<script src="serial.js"></script>
 
 </html>

@@ -14,6 +14,8 @@ function radarData(idTarget, Angle, Distance, SpeedDirection, Speed, SignalToNoi
     this.SignalToNoise = SignalToNoise//;0 to 255 Same as left 
 }
 
+const indicData = document.getElementById('blinking-indicator');
+
 //test
 let testRadar = [
     new radarData(1, 45, 100, 1, 3, 200)
@@ -44,13 +46,21 @@ const intervalNewDat = setInterval(function () {
     }
 
 
-
+    blinkingIndicator();
     //   counter++;
     //   console.log(`Interval count: ${counter}`);
     //   if (counter >= 5) {
     //     clearInterval(intervalId); // Stop the interval after 5 executions
     //   }
-}, 10000); // Execute every 10 second
+}, 1000); // Execute every 1 second
+
+function blinkingIndicator() {
+    indicData.classList.add('active'); // Добавляет класс 'active'
+    var bl = setInterval(() => {
+        indicData.classList.remove('active'); // удаляет класс 'active'
+        clearInterval(bl);
+    }, 500); // Интервал 500 миллисекунд
+}
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
