@@ -1,0 +1,29 @@
+document,
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    background-color: black;
+    color: white;
+    grid-template-rows: 50% 50%;
+}
+
+.info-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info-container .info-table {
+    min-width: 500px;
+}
+
+.info-container .info-table tbody tr {
+    background-color: #646c9c52;
+    text-align: center;
+}
